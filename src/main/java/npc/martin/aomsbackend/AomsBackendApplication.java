@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import npc.martin.aomsbackend.entity.Animal;
 import npc.martin.aomsbackend.entity.AnimalDetail;
-import npc.martin.aomsbackend.repository.AnimalDetailRepository;
-import npc.martin.aomsbackend.repository.AnimalRepository;
+import npc.martin.aomsbackend.services.AnimalDetailsService;
+import npc.martin.aomsbackend.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,10 +13,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AomsBackendApplication implements CommandLineRunner {
-    private LocalDate theDate = LocalDate.parse("Jun 21 2030", DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    private LocalDate theDate = LocalDate.parse("22 Feb 2024", DateTimeFormatter.ofPattern("dd MMM yyyy"));
     
     @Autowired
-    private AnimalRepository animalRepository;
+    private AnimalService animalService;
+    
+    @Autowired
+    private AnimalDetailsService animalDetailsService;
 
     public static void main(String[] args) {
         SpringApplication.run(AomsBackendApplication.class, args);
@@ -24,12 +27,25 @@ public class AomsBackendApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Animal testAnimal = new Animal("yang", "cta", 2);
+        /*
+        Animal theAnimal = new Animal("Hansa", "dog", 3);
+        AnimalDetail theDetails = new AnimalDetail(100, theDate, theDate, "Jane Doe", "+254-754-324590 ", "Iowa");
+        theAnimal.setAnimalDetail(theDetails);
         
-        AnimalDetail testAnimalDetail = new AnimalDetail(100, theDate, theDate, "John Doe", "+1 045-897-672", "Sometown");
-        testAnimal.setAnimalDetail(testAnimalDetail);
+        System.out.println("saving animal and details.. ");
+        animalService.createAnimal(theAnimal);
+        System.out.println("successfully saved animal and details... ");
+        */
         
-        animalRepository.save(testAnimal);
+        
+        System.out.println("Fetching animal from DB... ");
+        Animal retrievedAnimal = animalService.getAnimalById(100);
+        System.out.println("Retrieved Animal: " + retrievedAnimal);
+        
+        
+        System.out.println("Extracting data from retrieved animal... ");
+        AnimalDetail retrievedAnimalDetails = retrievedAnimal.getAnimalDetail();
+        
+        System.out.println("Retrieved Animal detail: " + retrievedAnimalDetails);
     }
-
 }

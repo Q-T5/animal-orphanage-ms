@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.Proxy;
 
 /**
  *
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "animal_detail")
+@Proxy(lazy=false)
 public class AnimalDetail {
     @Id
     @Column(name = "animal_id")

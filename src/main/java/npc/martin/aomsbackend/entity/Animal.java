@@ -3,12 +3,14 @@ package npc.martin.aomsbackend.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Proxy;
 
 /**
  *
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "animal")
+@Proxy(lazy = false)
 public class Animal {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,7 +35,7 @@ public class Animal {
     @Column(name = "age_years")
     private Integer age;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_animal_detail_id")
     private AnimalDetail animalDetail;
 
