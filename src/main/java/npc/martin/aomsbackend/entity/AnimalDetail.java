@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @Table(name = "animal_detail")
 public class AnimalDetail {
     @Id
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "animal_id")
+    private Integer animalId;
     
     @Column(name = "date_brought")
     private LocalDate dateBrought;
@@ -37,7 +37,7 @@ public class AnimalDetail {
     }
 
     public AnimalDetail(Integer id, LocalDate dateBrought, LocalDate dateAdopted, String adopteeName, String contactNumber, String residentialLocation) {
-        this.id = id;
+        this.animalId = id;
         this.dateBrought = dateBrought;
         this.dateAdopted = dateAdopted;
         this.adopteeName = adopteeName;
@@ -54,7 +54,7 @@ public class AnimalDetail {
     }
 
     public Integer getId() {
-        return id;
+        return animalId;
     }
 
     public LocalDate getDateBrought() {
@@ -79,6 +79,6 @@ public class AnimalDetail {
 
     @Override
     public String toString() {
-        return "AnimalDetail{" + "id=" + id + ", dateBrought=" + dateBrought + ", dateAdopted=" + dateAdopted + ", adopteeName=" + adopteeName + ", contactNumber=" + contactNumber + ", residentialLocation=" + residentialLocation + '}';
+        return "AnimalDetail{" + "id=" + animalId + ", dateBrought=" + dateBrought + ", dateAdopted=" + dateAdopted + ", adopteeName=" + adopteeName + ", contactNumber=" + contactNumber + ", residentialLocation=" + residentialLocation + '}';
     }
 }

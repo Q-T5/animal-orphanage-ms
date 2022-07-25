@@ -20,8 +20,8 @@ import javax.persistence.Table;
 public class Animal {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "animal_id")
+    private Integer animalId;
     
     @Column(name = "pet_name")
     private String petName;
@@ -46,11 +46,11 @@ public class Animal {
     }
 
     public Integer getId() {
-        return id;
+        return animalId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.animalId = id;
     }
 
     public String getPetName() {
@@ -87,6 +87,6 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal{" + "id=" + id + ", petName=" + petName + ", commonName=" + commonName + ", age=" + age + '}';
+        return "Animal{" + "id=" + animalId + ", petName=" + petName + ", commonName=" + commonName + ", age=" + age + '}';
     }
 }
