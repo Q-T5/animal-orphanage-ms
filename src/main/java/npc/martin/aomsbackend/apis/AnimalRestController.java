@@ -1,6 +1,7 @@
 package npc.martin.aomsbackend.apis;
 
 import java.util.List;
+import npc.martin.aomsbackend.advice.ResourceNotFoundException;
 import npc.martin.aomsbackend.entity.Animal;
 import npc.martin.aomsbackend.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,51 +32,71 @@ public class AnimalRestController {
     } 
    
     @GetMapping(value = "/animals/getAllAnimals")
-    public ResponseEntity<List<Animal>> getAnimals() {
-        List<Animal> animalList = animalService.getAnimals();
-        
-        if(animalList.isEmpty()) {
-            //replace this with custom exception
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<Animal>> getAnimals() throws Exception {
+        try {
+            List<Animal> animalList = animalService.getAnimals();
+
+            if(animalList.isEmpty()) {
+                throw new ResourceNotFoundException("No animal records found.");
+            }
+
+            return new ResponseEntity<>(animalList, HttpStatus.FOUND);
+        } catch(Exception ex) {
+            throw new Exception("Request failed to go through.");
         }
-        
-        return new ResponseEntity<>(animalList, HttpStatus.FOUND);
     }
     
     @PostMapping(value = "/animals/createAnimal")
-    public ResponseEntity<Animal> createAnimal(@RequestBody Animal animal) {
-        animal.setId(0);
-        animalService.createAnimal(animal);
+    public ResponseEntity<Animal> createAnimal(@RequestBody Animal animal) throws Exception {
+        try {
+            animal.setId(0);
+            animalService.createAnimal(animal);
+
+            return new ResponseEntity<>(animal, HttpStatus.CREATED);
+        } catch(Exception ex) {
+            throw new Exception("Request failed to go through.");
+        }
         
-        return new ResponseEntity<>(animal, HttpStatus.CREATED);
     }
     
     @GetMapping(value = "/animals/getAnimal/{animalId}")
-    public ResponseEntity<Animal> getAnimalById(@PathVariable Integer animalId) {
-        Animal theAnimal = animalService.getAnimalById(animalId);
-        
-        if(theAnimal == null) {
-            //replace this with custom exception
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    public ResponseEntity<Animal> getAnimalById(@PathVariable Integer animalId) throws Exception {
+        try {
+            Animal theAnimal = animalService.getAnimalById(animalId);
+
+            if(theAnimal == null) {
+                throw new ResourceNotFoundException("No animal for id: " + animalId + "found.");
+            }
+
+            return new ResponseEntity<>(theAnimal, HttpStatus.FOUND); 
+        } catch(Exception ex) {
+            throw new Exception("Request failed to go through.");
         }
-        
-        return new ResponseEntity<>(theAnimal, HttpStatus.FOUND);
     }
     
     @PutMapping(value = "/animals/updateAnimal")
-    public ResponseEntity<Animal> updateAnimal(@RequestBody Animal animal) {
-        animalService.updateAnimal(animal);
-        return new ResponseEntity<>(animal, HttpStatus.OK);
+    public ResponseEntity<Animal> updateAnimal(@RequestBody Animal animal) throws Exception {
+        try {
+            animalService.updateAnimal(animal);
+            return new ResponseEntity<>(animal, HttpStatus.OK);
+        } catch(Exception ex) {
+            throw new Exception("Request failed to go through.");
+        }
     }
     
     @DeleteMapping(value = "/animals/deleteAnimal/{animalId}")
-    public ResponseEntity<String> deleteAnimal(@PathVariable Integer animalId) {
-        Animal theAnimal = animalService.getAnimalById(animalId);
+    public ResponseEntity<String> deleteAnimal(@PathVariable Integer animalId) throws Exception {
+        try {
+            Animal theAnimal = animalService.getAnimalById(animalId);
         
-        if(theAnimal == null) {
-            return new ResponseEntity<>("Animal Not Found", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        animalService.deleteAnimal(theAnimal);
+            if(theAnimal == null) {
+                throw new ResourceNotFoundException("No animal for id: " + animalId + "found.");
+            }
+            animalService.deleteAnimal(theAnimal);
         return new ResponseEntity<>(null, HttpStatus.OK);
+            
+        } catch(Exception ex) {
+            throw new Exception("Request failed to go through.");
+        }
     }
 }

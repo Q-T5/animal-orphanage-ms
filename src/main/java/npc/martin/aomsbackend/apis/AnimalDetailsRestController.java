@@ -27,14 +27,22 @@ public class AnimalDetailsRestController {
     }
     
     @PostMapping(value = "/animals/addAnimalDetails")
-    public ResponseEntity<AnimalDetail> addAnimalDetail(@RequestBody AnimalDetail animalDetail) {
-        animalDetailsService.addAnimalDetail(animalDetail);
-        return new ResponseEntity<>(animalDetail, HttpStatus.CREATED);
+    public ResponseEntity<AnimalDetail> addAnimalDetail(@RequestBody AnimalDetail animalDetail) throws Exception {
+        try {
+            animalDetailsService.addAnimalDetail(animalDetail);
+            return new ResponseEntity<>(animalDetail, HttpStatus.CREATED);
+        } catch(Exception ex) {
+            throw new Exception("Request failed to go through.");
+        }
     }
     
     @PutMapping(value = "/animals/updateAnimalDetails")
-    public ResponseEntity<AnimalDetail> updateAnimalDetail(@RequestBody AnimalDetail animalDetail) {
-        animalDetailsService.updateAnimalDetail(animalDetail);
-        return new ResponseEntity<>(animalDetail, HttpStatus.OK);
+    public ResponseEntity<AnimalDetail> updateAnimalDetail(@RequestBody AnimalDetail animalDetail) throws Exception {
+        try {
+            animalDetailsService.updateAnimalDetail(animalDetail);
+            return new ResponseEntity<>(animalDetail, HttpStatus.OK);
+        } catch(Exception ex) {
+            throw new Exception("Request failed to go through.");
+        }
     }
 }
