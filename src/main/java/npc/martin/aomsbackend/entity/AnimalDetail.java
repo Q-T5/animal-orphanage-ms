@@ -79,6 +79,30 @@ public class AnimalDetail {
         return residentialLocation;
     }
 
+    public void setAnimalId(Integer animalId) {
+        this.animalId = animalId;
+    }
+
+    public void setDateBrought(LocalDate dateBrought) {
+        this.dateBrought = dateBrought;
+    }
+
+    public void setDateAdopted(LocalDate dateAdopted) {
+        this.dateAdopted = dateAdopted;
+    }
+
+    public void setAdopteeName(String adopteeName) {
+        this.adopteeName = adopteeName;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public void setResidentialLocation(String residentialLocation) {
+        this.residentialLocation = residentialLocation;
+    }
+
     @Override
     public String toString() {
         return "AnimalDetail{" + "id=" + animalId + ", dateBrought=" + dateBrought + ", dateAdopted=" + dateAdopted + ", adopteeName=" + adopteeName + ", contactNumber=" + contactNumber + ", residentialLocation=" + residentialLocation + '}';

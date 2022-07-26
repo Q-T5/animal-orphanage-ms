@@ -51,12 +51,9 @@ public class AnimalDAOImpl implements AnimalDAO {
     }
 
     @Override
-    public void deleteAnimalById(Integer animalId) {
+    public void deleteAnimal(Animal animal) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query query = currentSession.createQuery("delete from Animal where animalId=:animalId");
-
-        query.setParameter("animalId", animalId);
-        query.executeUpdate();
+        currentSession.delete(animal);
     }
 
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
-    private AnimalDAO animalDAO;
+    private final AnimalDAO animalDAO;
     
     @Autowired
     public AnimalServiceImpl(AnimalDAO animalDAO) {
@@ -46,7 +46,8 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public void deleteAnimalById(Integer animalId) {
-        animalDAO.deleteAnimalById(animalId);
+    @Transactional
+    public void deleteAnimal(Animal animal) {
+        animalDAO.deleteAnimal(animal);
     }
 }

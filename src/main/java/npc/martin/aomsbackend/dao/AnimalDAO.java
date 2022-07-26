@@ -12,5 +12,5 @@ public interface AnimalDAO {
     public void createAnimal(Animal animal);
     public Animal getAnimalById(Integer animalId);
     public void updateAnimal(Animal animal);
-    public void deleteAnimalById(Integer animalId);
+    public void deleteAnimal(Animal animal);
 }

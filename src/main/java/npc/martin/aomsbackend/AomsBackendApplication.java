@@ -35,9 +35,9 @@ public class AomsBackendApplication implements CommandLineRunner {
         System.out.println("saving animal and details.. ");
         animalService.createAnimal(theAnimal);
         System.out.println("successfully saved animal and details... ");
-        */
         
         
+        /*
         System.out.println("Fetching animal from DB... ");
         Animal retrievedAnimal = animalService.getAnimalById(100);
         System.out.println("Retrieved Animal: " + retrievedAnimal);
@@ -47,5 +47,6 @@ public class AomsBackendApplication implements CommandLineRunner {
         AnimalDetail retrievedAnimalDetails = retrievedAnimal.getAnimalDetail();
         
         System.out.println("Retrieved Animal detail: " + retrievedAnimalDetails);
+        */
     }
 }
