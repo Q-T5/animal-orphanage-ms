@@ -32,7 +32,7 @@ public class AnimalDetailsRestController {
             animalDetailsService.addAnimalDetail(animalDetail);
             return new ResponseEntity<>(animalDetail, HttpStatus.CREATED);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     
@@ -42,7 +42,7 @@ public class AnimalDetailsRestController {
             animalDetailsService.updateAnimalDetail(animalDetail);
             return new ResponseEntity<>(animalDetail, HttpStatus.OK);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
 }

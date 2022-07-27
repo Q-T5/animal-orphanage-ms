@@ -47,7 +47,7 @@ public class AnimalProgressRecordsRestController {
                 throw new ResourceNotFoundException("Animal progress records for the id: " + animalId + "do not exist.");
             }
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     
@@ -57,7 +57,7 @@ public class AnimalProgressRecordsRestController {
             AnimalProgressRecords createdRecords = animalProgressRecordsService.createAnimalProgressRecord(animalProgressRecord);
             return new ResponseEntity<>(createdRecords, HttpStatus.CREATED);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     
@@ -81,7 +81,7 @@ public class AnimalProgressRecordsRestController {
             animalProgressRecordsService.updateAnimalProgressRecord(currentAnimalProgressRecord);
             return new ResponseEntity<>(currentAnimalProgressRecord, HttpStatus.OK);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     
@@ -91,7 +91,7 @@ public class AnimalProgressRecordsRestController {
             animalProgressRecordsService.deleteAnimalProgressRecord(animalId);
             return new ResponseEntity<>("Successfully deleted records for animal with id: " + animalId, HttpStatus.OK);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     

@@ -42,7 +42,7 @@ public class AnimalRestController {
 
             return new ResponseEntity<>(animalList, HttpStatus.FOUND);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     
@@ -54,7 +54,7 @@ public class AnimalRestController {
 
             return new ResponseEntity<>(animal, HttpStatus.CREATED);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
         
     }
@@ -70,7 +70,7 @@ public class AnimalRestController {
 
             return new ResponseEntity<>(theAnimal, HttpStatus.FOUND); 
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     
@@ -80,7 +80,7 @@ public class AnimalRestController {
             animalService.updateAnimal(animal);
             return new ResponseEntity<>(animal, HttpStatus.OK);
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
     
@@ -96,7 +96,7 @@ public class AnimalRestController {
         return new ResponseEntity<>(null, HttpStatus.OK);
             
         } catch(Exception ex) {
-            throw new Exception("Request failed to go through.");
+            throw new Exception("Encountered an error trying to serve the request.");
         }
     }
 }
