@@ -1,7 +1,7 @@
 package npc.martin.aomsbackend.apis;
 
-import java.time.LocalDate;
 import java.util.Optional;
+import npc.martin.aomsbackend.advice.QueryEmptyResult;
 import npc.martin.aomsbackend.advice.ResourceNotFoundException;
 import npc.martin.aomsbackend.entity.AnimalProgressRecords;
 import npc.martin.aomsbackend.services.AnimalProgressRecordsService;
@@ -45,7 +45,7 @@ public class AnimalProgressRecordsRestController {
         if(theRecordsContainer.isPresent()) {
             return new ResponseEntity<>(theRecordsContainer.get(), HttpStatus.FOUND);
         } else {
-            throw new ResourceNotFoundException("Animal progress records for the id: " + animalId + "do not exist.");
+            throw new QueryEmptyResult("Animal progress records for the id: " + animalId + "do not exist.");
         }
     }
     
@@ -63,7 +63,7 @@ public class AnimalProgressRecordsRestController {
         if(theRecordsContainer.isPresent()) {
             currentAnimalProgressRecord = theRecordsContainer.get();
         } else {
-            throw new ResourceNotFoundException("Animal progress records for the id: " + animalProgressRecord.getAnimalId() + "do not exist.");
+            throw new QueryEmptyResult("Animal progress records for the id: " + animalProgressRecord.getAnimalId() + "do not exist.");
         }
 
         currentAnimalProgressRecord.setClinicalState(animalProgressRecord.getClinicalState());
@@ -80,7 +80,7 @@ public class AnimalProgressRecordsRestController {
         Optional<AnimalProgressRecords> theRecordsContainer = animalProgressRecordsService.getAnimalDetails(animalId);
         
         if(theRecordsContainer.isEmpty()) {
-            throw new ResourceNotFoundException("No animal for id: " + animalId + " found.");
+            throw new QueryEmptyResult("No animal for id: " + animalId + " was found.");
         }
         
         animalProgressRecordsService.deleteAnimalProgressRecord(animalId);

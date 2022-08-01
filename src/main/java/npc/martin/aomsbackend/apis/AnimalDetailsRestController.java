@@ -32,13 +32,11 @@ public class AnimalDetailsRestController {
     public ResponseEntity<AnimalDetail> addAnimalDetail(@RequestBody AnimalDetail animalDetail) {
         animalDetailsService.addAnimalDetail(animalDetail);
         return new ResponseEntity<>(animalDetail, HttpStatus.CREATED);
-        
     }
     
     @PutMapping(value = "/animals/updateAnimalDetails")
     public ResponseEntity<AnimalDetail> updateAnimalDetail(@RequestBody AnimalDetail animalDetail) {
         animalDetailsService.updateAnimalDetail(animalDetail);
         return new ResponseEntity<>(animalDetail, HttpStatus.OK);
-        
     }
 }

@@ -1,6 +1,7 @@
 package npc.martin.aomsbackend.apis;
 
 import java.util.List;
+import npc.martin.aomsbackend.advice.QueryEmptyResult;
 import npc.martin.aomsbackend.advice.ResourceNotFoundException;
 import npc.martin.aomsbackend.entity.Animal;
 import npc.martin.aomsbackend.services.AnimalService;
@@ -30,7 +31,7 @@ public class AnimalRestController {
         List<Animal> animalList = animalService.getAnimals();
 
         if(animalList.isEmpty()) {
-            throw new ResourceNotFoundException("No animal records found.");
+            throw new QueryEmptyResult("Server responded with an empty result set.");
         }
 
         return new ResponseEntity<>(animalList, HttpStatus.OK);
@@ -49,7 +50,7 @@ public class AnimalRestController {
         Animal theAnimal = animalService.getAnimalById(animalId);
 
         if(theAnimal == null) {
-            throw new ResourceNotFoundException("No animal for id: " + animalId + " found.");
+            throw new QueryEmptyResult("Animal with ID: " + animalId + " not found.");
         }
 
         return new ResponseEntity<>(theAnimal, HttpStatus.OK);
@@ -66,7 +67,7 @@ public class AnimalRestController {
         Animal theAnimal = animalService.getAnimalById(animalId);
 
         if(theAnimal == null) {
-            throw new ResourceNotFoundException("No animal for id: " + animalId + "found.");
+            throw new QueryEmptyResult("Animal with ID: " + animalId + " not found.");
         }
         animalService.deleteAnimal(theAnimal);
         return new ResponseEntity<>(HttpStatus.OK);

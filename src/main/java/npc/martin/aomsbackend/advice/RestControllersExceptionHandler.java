@@ -26,6 +26,17 @@ public class RestControllersExceptionHandler {
 
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
+    
+    @ExceptionHandler(QueryEmptyResult.class)
+    public ResponseEntity<ErrorMessage> queryReturnedEmptyResult(QueryEmptyResult ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+            HttpStatus.NO_CONTENT.value(),
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("E, dd-MM-yyyy HH:mm:ss")),
+            ex.getMessage(),
+            request.getDescription(false));
+        
+        return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> otherException(Exception ex, WebRequest request) {
