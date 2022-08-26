@@ -18,13 +18,13 @@ public class AnimalProgressRecords {
     private Integer animalId;
     private ClinicalState clinicalState;
     private String whereFound;
-    private List<String> foods;
+    private String foods;
     private List<MedicalProgress> medicalProgress;
 
     public AnimalProgressRecords() {
     }
 
-    public AnimalProgressRecords(Integer animalId, ClinicalState clinicalState, String whereFound, List<String> foods, List<MedicalProgress> medicalProgress) {
+    public AnimalProgressRecords(Integer animalId, ClinicalState clinicalState, String whereFound, String foods, List<MedicalProgress> medicalProgress) {
         this.animalId = animalId;
         this.clinicalState = clinicalState;
         this.whereFound = whereFound;
@@ -56,11 +56,11 @@ public class AnimalProgressRecords {
         this.whereFound = whereFound;
     }
 
-    public List<String> getFoods() {
+    public String getFoods() {
         return foods;
     }
 
-    public void setFoods(List<String> foods) {
+    public void setFoods(String foods) {
         this.foods = foods;
     }
 
@@ -75,14 +75,6 @@ public class AnimalProgressRecords {
     @Override
     public String toString() {
         return "AnimalProgressRecords{" + "animalId=" + animalId + ", clinicalState=" + clinicalState + ", whereFound=" + whereFound + ", foods=" + foods + ", medicalProgress=" + medicalProgress + '}';
-    }
-    
-    public void updateFoodsList(String food) {
-        if(this.foods == null) {
-            this.foods = new ArrayList<>();
-        }
-        
-        this.foods.add(food);
     }
     
     public void updateMedicalProgress(MedicalProgress medicalProgressUpdate) {
@@ -140,13 +132,13 @@ class ClinicalState {
 
 class MedicalProgress {
     private LocalDate checkupDate;
-    private List<String> checkupNotes;
+    private String checkupNotes;
     private LocalDate nextCheckupDate;
 
     public MedicalProgress() {
     }
 
-    public MedicalProgress(LocalDate checkupDate, List<String> checkupNotes, LocalDate nextCheckupDate) {
+    public MedicalProgress(LocalDate checkupDate, String checkupNotes, LocalDate nextCheckupDate) {
         this.checkupDate = checkupDate;
         this.checkupNotes = checkupNotes;
         this.nextCheckupDate = nextCheckupDate;
@@ -160,11 +152,11 @@ class MedicalProgress {
         this.checkupDate = checkupDate;
     }
 
-    public List<String> getCheckupNotes() {
+    public String getCheckupNotes() {
         return checkupNotes;
     }
 
-    public void setCheckupNotes(List<String> checkupNotes) {
+    public void setCheckupNotes(String checkupNotes) {
         this.checkupNotes = checkupNotes;
     }
 
