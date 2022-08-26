@@ -3,6 +3,8 @@ package npc.martin.aomsbackend.entity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.annotations.Proxy;
@@ -18,6 +20,7 @@ import org.hibernate.annotations.Proxy;
 public class AnimalDetail {
     @Id
     @Column(name = "animal_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer animalId;
     
     @Column(name = "date_brought")
