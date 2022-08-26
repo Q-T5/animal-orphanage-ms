@@ -6,6 +6,7 @@ import npc.martin.aomsbackend.entity.Animal;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -65,5 +66,17 @@ public class AnimalDAOImpl implements AnimalDAO {
         query.setParameter("animal_id", animalId);
         Animal theAnimal = query.getSingleResult();
         return theAnimal;
+    }
+
+    @Override
+    public List<Animal> searchAnimalByCommonName(String commonName) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Animal> query = currentSession.createQuery(
+                "FROM Animal A WHERE A.commonName = :commonName" +
+                " ORDER BY A.animalId DESC"
+        );
+        query.setParameter("commonName", commonName);
+        List<Animal> animalList = query.list();
+        return animalList;
     }
 }

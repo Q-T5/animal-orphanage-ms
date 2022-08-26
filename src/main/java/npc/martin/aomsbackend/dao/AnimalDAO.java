@@ -12,6 +12,7 @@ public interface AnimalDAO {
     public void createAnimal(Animal animal);
     public Animal getAnimalById(Integer animalId);
     public Animal searchAnimalById(Integer animalId);
+    public List<Animal> searchAnimalByCommonName(String commonName);
     public void updateAnimal(Animal animal);
     public void deleteAnimal(Animal animal);
 }

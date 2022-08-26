@@ -52,7 +52,14 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
+    @Transactional
     public Animal searchAnimalById(Integer animalId) {
         return animalDAO.searchAnimalById(animalId);
+    }
+
+    @Override
+    @Transactional
+    public List<Animal> searchAnimalByCommonName(String commonName) {
+        return animalDAO.searchAnimalByCommonName(commonName);
     }
 }
