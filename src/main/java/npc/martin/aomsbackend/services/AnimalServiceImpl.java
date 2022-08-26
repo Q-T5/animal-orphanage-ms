@@ -50,4 +50,9 @@ public class AnimalServiceImpl implements AnimalService {
     public void deleteAnimal(Animal animal) {
         animalDAO.deleteAnimal(animal);
     }
+
+    @Override
+    public Animal searchAnimalById(Integer animalId) {
+        return animalDAO.searchAnimalById(animalId);
+    }
 }

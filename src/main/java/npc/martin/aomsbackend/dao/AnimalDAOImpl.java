@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class AnimalDAOImpl implements AnimalDAO {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
     
     @Autowired
     public AnimalDAOImpl(EntityManager entityManager) {
@@ -56,4 +56,14 @@ public class AnimalDAOImpl implements AnimalDAO {
         currentSession.delete(animal);
     }
 
+    @Override
+    public Animal searchAnimalById(Integer animalId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Animal> query = currentSession.createQuery(
+                "FROM Animal A WHERE A.animalId = :animal_id", 
+                Animal.class);
+        query.setParameter("animal_id", animalId);
+        Animal theAnimal = query.getSingleResult();
+        return theAnimal;
+    }
 }

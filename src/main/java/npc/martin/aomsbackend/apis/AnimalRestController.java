@@ -2,7 +2,6 @@ package npc.martin.aomsbackend.apis;
 
 import java.util.List;
 import npc.martin.aomsbackend.advice.QueryEmptyResult;
-import npc.martin.aomsbackend.advice.ResourceNotFoundException;
 import npc.martin.aomsbackend.entity.Animal;
 import npc.martin.aomsbackend.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +48,17 @@ public class AnimalRestController {
     public ResponseEntity<Animal> getAnimalById(@PathVariable Integer animalId) {
         Animal theAnimal = animalService.getAnimalById(animalId);
 
+        if(theAnimal == null) {
+            throw new QueryEmptyResult("Animal with ID: " + animalId + " not found.");
+        }
+
+        return new ResponseEntity<>(theAnimal, HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "/animal/searchAnimal/{animalId}")
+    public ResponseEntity<Animal> searchAnimalById(@PathVariable Integer animalId) {
+        Animal theAnimal = animalService.searchAnimalById(animalId);
+        
         if(theAnimal == null) {
             throw new QueryEmptyResult("Animal with ID: " + animalId + " not found.");
         }
