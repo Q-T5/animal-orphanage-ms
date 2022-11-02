@@ -1,12 +1,21 @@
 package npc.martin.aomsbackend.entity;
 
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -16,98 +25,37 @@ import org.hibernate.annotations.Proxy;
 
 @Entity
 @Table(name = "animal_detail")
-@Proxy(lazy=false)
+@Proxy(lazy = false)
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnimalDetail {
     @Id
-    @Column(name = "animal_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "animal_id")
     private Integer animalId;
     
+    @Column(name = "pet_name")
+    private String petName;
+    
+    @Column(name = "common_name")
+    private String commonName;
+    
+    @Column(name = "age_years")
+    private Integer age;
+            
     @Column(name = "date_brought")
     private LocalDate dateBrought;
     
-    @Column(name = "date_adopted")
-    private LocalDate dateAdopted;
-    
-    @Column(name = "adoptee_name")
-    private String adopteeName;
-    
-    @Column(name = "contact_number")
-    private String contactNumber;
-    
-    @Column(name = "residential_location")
-    private String residentialLocation;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_animal_detail_id")
+    private AdoptionDetail animalDetail;
 
-    public AnimalDetail() {
-    }
-
-    public AnimalDetail(Integer id, LocalDate dateBrought, LocalDate dateAdopted, String adopteeName, String contactNumber, String residentialLocation) {
-        this.animalId = id;
-        this.dateBrought = dateBrought;
-        this.dateAdopted = dateAdopted;
-        this.adopteeName = adopteeName;
-        this.contactNumber = contactNumber;
-        this.residentialLocation = residentialLocation;
-    }
-
-    public AnimalDetail(LocalDate dateBrought, LocalDate dateAdopted, String adopteeName, String contactNumber, String residentialLocation) {
-        this.dateBrought = dateBrought;
-        this.dateAdopted = dateAdopted;
-        this.adopteeName = adopteeName;
-        this.contactNumber = contactNumber;
-        this.residentialLocation = residentialLocation;
-    }
-
-    public Integer getId() {
-        return animalId;
-    }
-
-    public LocalDate getDateBrought() {
-        return dateBrought;
-    }
-
-    public LocalDate getDateAdopted() {
-        return dateAdopted;
-    }
-
-    public String getAdopteeName() {
-        return adopteeName;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public String getResidentialLocation() {
-        return residentialLocation;
-    }
-
-    public void setAnimalId(Integer animalId) {
-        this.animalId = animalId;
-    }
-
-    public void setDateBrought(LocalDate dateBrought) {
-        this.dateBrought = dateBrought;
-    }
-
-    public void setDateAdopted(LocalDate dateAdopted) {
-        this.dateAdopted = dateAdopted;
-    }
-
-    public void setAdopteeName(String adopteeName) {
-        this.adopteeName = adopteeName;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public void setResidentialLocation(String residentialLocation) {
-        this.residentialLocation = residentialLocation;
-    }
-
-    @Override
-    public String toString() {
-        return "AnimalDetail{" + "id=" + animalId + ", dateBrought=" + dateBrought + ", dateAdopted=" + dateAdopted + ", adopteeName=" + adopteeName + ", contactNumber=" + contactNumber + ", residentialLocation=" + residentialLocation + '}';
+    public AnimalDetail(String petName, String commonName, Integer age) {
+        this.petName = petName;
+        this.commonName = commonName;
+        this.age = age;
     }
 }
