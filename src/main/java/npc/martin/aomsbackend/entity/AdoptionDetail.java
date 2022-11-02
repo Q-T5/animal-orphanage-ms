@@ -20,21 +20,18 @@ import org.hibernate.annotations.Proxy;
  */
 
 @Entity
-@Table(name = "animal_detail")
+@Table(name = "adoption_detail")
 @Proxy(lazy=false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class AnimalDetail {
+public class AdoptionDetail {
     @Id
     @Column(name = "animal_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer animalId;
-    
-    @Column(name = "date_brought")
-    private LocalDate dateBrought;
     
     @Column(name = "date_adopted")
     private LocalDate dateAdopted;
@@ -48,20 +45,7 @@ public class AnimalDetail {
     @Column(name = "residential_location")
     private String residentialLocation;
 
-    public AnimalDetail() {
-    }
-
-    public AnimalDetail(Integer id, LocalDate dateBrought, LocalDate dateAdopted, String adopteeName, String contactNumber, String residentialLocation) {
-        this.animalId = id;
-        this.dateBrought = dateBrought;
-        this.dateAdopted = dateAdopted;
-        this.adopteeName = adopteeName;
-        this.contactNumber = contactNumber;
-        this.residentialLocation = residentialLocation;
-    }
-
-    public AnimalDetail(LocalDate dateBrought, LocalDate dateAdopted, String adopteeName, String contactNumber, String residentialLocation) {
-        this.dateBrought = dateBrought;
+    public AdoptionDetail(LocalDate dateAdopted, String adopteeName, String contactNumber, String residentialLocation) {
         this.dateAdopted = dateAdopted;
         this.adopteeName = adopteeName;
         this.contactNumber = contactNumber;
