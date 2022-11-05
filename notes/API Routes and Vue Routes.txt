@@ -1,0 +1,53 @@
+This file contains the api routes that the frontend can communicate to, and the Vue routes that will
+be used by the frontend.
+
+VUE ROUTES
+STAFF
+1. '/'- retrieve the login page- a user must always be logged in to use the system
+2. '/animal-dashboard'- a dashboard that the staff can use to manage animal data
+		     this is what a staff member should see when they login
+3. '/add-new-animal'- a route to a set of steps where a staff member can add a new animal to the database.
+4. '/update-animal'- a route to where a staff member can update, or delete an existing animal
+*Loging out should take you back to '/'
+
+SYSTEM ADMIN
+5. '/admin-panel'- if an admin has logged in, this is where he is taken
+		   from this panel, he/she can administer the database.
+6. '/add-new-user'- from the admin panel, the admin can come to this site to add new users
+7. '/update-user'- from the admin panel, the admin can come here to update, freeze, and delete a user account.
+8. '/notes'- from the admin panel, the admin can come here to view notes, and also update their state left by the manager.
+9. '/reset-database'- from the admin panel, the admin can come here to reset the database. They will be asked to 
+		      confirm their identity first.
+
+MANAGER
+10. '/progress-summary'- on this panel, the manager can see various charts and graphs presenting data about the state of the orphanage.
+11. '/add-note'- the manager can come here to add a note to the admin and see a list of previous notes and their state.
+
+SPRING API ROUTES
+ANIMAL'S API
+(i) MySQL-RELATED APIs
+We will have two interfaces that extend JPARepo: One that works with 'Animal Details' table, and the other to work with 'Animal Details'
+table:
+	1. /animals/getAllAnimals (Animal)- get a list of all animals in the Animal table.
+	2. /animals/createAnimal (Animal)- add a new animal to the Animals table
+	   /animals/addAnimalDetails (AnimalDetail)- add adoptee details for an animal already created in the Animal Details table.
+	3. /animals/getAnimal/{animalId} (Animal)- get an animal by its id from the Animal table- eager loading animal details
+	4. /animals/updateAnimal/ (Animal)- update details of an animal in the Animal table
+	   /animals/updateAnimalDetails (Animal Detail)- update details of an animal in the Animal Details table.
+	5. /animals/deleteAnimal/{animalId} (Animal)- delete an animal in the Animal table. The related Animal Detail should also be deleted.
+
+(ii)MONGO-RELATED APIs
+We then have another interface that extends MongoRepo that interfaces with the MongoDB for the animal:
+	6. /animals/newAnimalRecord- add new animal information to the Mongo DB. The animal must exist in both MySQL tables first.
+	7. /animals/getAnimalRecord/{animalId}- read animal information from the DB
+	8. /animals/updateAnimalRecord/{animalId}- update an animal in the database
+	9. /animals/deleteAnimalRecord/{animalId}- delete an animal from the DB. This method should be accessed only when sequential records have been deleted
+	
+HUMANS API
+**We wi
+NOTES API
+This is an API to handle notes sent from manager to the system admin
+	1. /mongo/notes/createNote- create a new note by the manager
+	2. /mongo/notes/getNotes- get all notes (both manager and the admin)
+	3. /mongo/notes/updateNote- update note content (by the manager)
+	4. /mongo/notes/deleteNote- delete note (by the manager)
