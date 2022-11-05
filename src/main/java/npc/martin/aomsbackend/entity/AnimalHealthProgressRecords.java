@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 
 @Document(collection = "progressrecords")
-public class AnimalProgressRecords {
+public class AnimalHealthProgressRecords {
     @Id
     private Integer animalId;
     private ClinicalState clinicalState;
@@ -21,10 +21,10 @@ public class AnimalProgressRecords {
     private String foods;
     private List<MedicalProgress> medicalProgress;
 
-    public AnimalProgressRecords() {
+    public AnimalHealthProgressRecords() {
     }
 
-    public AnimalProgressRecords(Integer animalId, ClinicalState clinicalState, String whereFound, String foods, List<MedicalProgress> medicalProgress) {
+    public AnimalHealthProgressRecords(Integer animalId, ClinicalState clinicalState, String whereFound, String foods, List<MedicalProgress> medicalProgress) {
         this.animalId = animalId;
         this.clinicalState = clinicalState;
         this.whereFound = whereFound;
