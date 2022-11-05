@@ -1,6 +1,6 @@
 package npc.martin.aomsbackend.dao;
 
-import npc.martin.aomsbackend.entity.AnimalProgressRecords;
+import npc.martin.aomsbackend.entity.AnimalHealthProgressRecords;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface AnimalProgressRecordsRepo extends MongoRepository<AnimalProgressRecords, Integer> {
+public interface AnimalHealthProgressRecordsRepo extends MongoRepository<AnimalHealthProgressRecords, Integer> {
     
 }
