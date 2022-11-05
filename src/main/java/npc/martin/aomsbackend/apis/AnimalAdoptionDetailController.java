@@ -1,7 +1,6 @@
 package npc.martin.aomsbackend.apis;
 
-import npc.martin.aomsbackend.entity.AnimalDetail;
-import npc.martin.aomsbackend.services.AnimalDetailsService;
+import npc.martin.aomsbackend.entity.AnimalAdoptionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import npc.martin.aomsbackend.services.AnimalAdoptionDetailService;
 
 /**
  *
@@ -20,22 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" } )
-public class AnimalDetailsRestController {
-    private final AnimalDetailsService animalDetailsService;
+public class AnimalAdoptionDetailController {
+    private final AnimalAdoptionDetailService animalDetailsService;
     
     @Autowired
-    public AnimalDetailsRestController(AnimalDetailsService animalDetailsService) {
+    public AnimalAdoptionDetailController(AnimalAdoptionDetailService animalDetailsService) {
         this.animalDetailsService = animalDetailsService;
     }
     
     @PostMapping(value = "/animals/addAnimalDetails")
-    public ResponseEntity<AnimalDetail> addAnimalDetail(@RequestBody AnimalDetail animalDetail) {
+    public ResponseEntity<AnimalAdoptionDetail> addAnimalDetail(@RequestBody AnimalAdoptionDetail animalDetail) {
         animalDetailsService.addAnimalDetail(animalDetail);
         return new ResponseEntity<>(animalDetail, HttpStatus.CREATED);
     }
     
     @PutMapping(value = "/animals/updateAnimalDetails")
-    public ResponseEntity<AnimalDetail> updateAnimalDetail(@RequestBody AnimalDetail animalDetail) {
+    public ResponseEntity<AnimalAdoptionDetail> updateAnimalDetail(@RequestBody AnimalAdoptionDetail animalDetail) {
         animalDetailsService.updateAnimalDetail(animalDetail);
         return new ResponseEntity<>(animalDetail, HttpStatus.OK);
     }

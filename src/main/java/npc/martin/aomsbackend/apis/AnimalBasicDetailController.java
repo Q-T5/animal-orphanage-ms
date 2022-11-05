@@ -2,12 +2,12 @@ package npc.martin.aomsbackend.apis;
 
 import java.util.List;
 import npc.martin.aomsbackend.advice.QueryEmptyResult;
-import npc.martin.aomsbackend.entity.Animal;
-import npc.martin.aomsbackend.services.AnimalService;
+import npc.martin.aomsbackend.entity.AnimalBasicDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import npc.martin.aomsbackend.services.AnimalBasicDetailService;
 
 /**
  *
@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" } )
-public class AnimalRestController {
-    private final AnimalService animalService;
+public class AnimalBasicDetailController {
+    private final AnimalBasicDetailService animalService;
     
     @Autowired
-    public AnimalRestController(AnimalService animalService) {
+    public AnimalBasicDetailController(AnimalBasicDetailService animalService) {
         this.animalService = animalService;
     } 
    
     @GetMapping(value = "/animals/getAllAnimals")
-    public ResponseEntity<List<Animal>> getAnimals() {
-        List<Animal> animalList = animalService.getAnimals();
+    public ResponseEntity<List<AnimalBasicDetail>> getAnimals() {
+        List<AnimalBasicDetail> animalList = animalService.getAnimals();
 
         if(animalList.isEmpty()) {
             throw new QueryEmptyResult("Server responded with an empty result set.");
@@ -37,16 +37,16 @@ public class AnimalRestController {
     }
     
     @PostMapping(value = "/animals/createAnimal")
-    public ResponseEntity<Animal> createAnimal(@RequestBody Animal animal) {
-        animal.setId(0);
+    public ResponseEntity<AnimalBasicDetail> createAnimal(@RequestBody AnimalBasicDetail animal) {
+        animal.setAnimalId(0);
         animalService.createAnimal(animal);
 
         return new ResponseEntity<>(animal, HttpStatus.CREATED);
     }
     
     @GetMapping(value = "/animals/getAnimal/{animalId}")
-    public ResponseEntity<Animal> getAnimalById(@PathVariable Integer animalId) {
-        Animal theAnimal = animalService.getAnimalById(animalId);
+    public ResponseEntity<AnimalBasicDetail> getAnimalById(@PathVariable Integer animalId) {
+        AnimalBasicDetail theAnimal = animalService.getAnimalById(animalId);
 
         if(theAnimal == null) {
             throw new QueryEmptyResult("Animal with ID: " + animalId + " not found.");
@@ -56,8 +56,8 @@ public class AnimalRestController {
     }
     
     @GetMapping(value = "/animal/searchAnimal/{animalId}")
-    public ResponseEntity<Animal> searchAnimalById(@PathVariable Integer animalId) {
-        Animal theAnimal = animalService.searchAnimalById(animalId);
+    public ResponseEntity<AnimalBasicDetail> searchAnimalById(@PathVariable Integer animalId) {
+        AnimalBasicDetail theAnimal = animalService.searchAnimalById(animalId);
         
         if(theAnimal == null) {
             throw new QueryEmptyResult("Animal with ID: " + animalId + " not found.");
@@ -67,9 +67,9 @@ public class AnimalRestController {
     }
     
     @GetMapping(value = "/animal/searchAnimal/commonName")
-    public ResponseEntity<List<Animal>> 
+    public ResponseEntity<List<AnimalBasicDetail>> 
             searchAnimalByCommonName(@RequestParam(required = true) String name) {
-        List<Animal> animalList = animalService.searchAnimalByCommonName(name);
+        List<AnimalBasicDetail> animalList = animalService.searchAnimalByCommonName(name);
         
         if(animalList.isEmpty()) {
             throw new QueryEmptyResult("Animal with common name: " + name + " not found.");
@@ -79,14 +79,14 @@ public class AnimalRestController {
     }
     
     @PutMapping(value = "/animals/updateAnimal")
-    public ResponseEntity<Animal> updateAnimal(@RequestBody Animal animal) {
+    public ResponseEntity<AnimalBasicDetail> updateAnimal(@RequestBody AnimalBasicDetail animal) {
         animalService.updateAnimal(animal);
         return new ResponseEntity<>(animal, HttpStatus.OK);
     }
     
     @DeleteMapping(value = "/animals/deleteAnimal/{animalId}")
     public ResponseEntity<String> deleteAnimal(@PathVariable Integer animalId) {
-        Animal theAnimal = animalService.getAnimalById(animalId);
+        AnimalBasicDetail theAnimal = animalService.getAnimalById(animalId);
 
         if(theAnimal == null) {
             throw new QueryEmptyResult("Animal with ID: " + animalId + " not found.");
