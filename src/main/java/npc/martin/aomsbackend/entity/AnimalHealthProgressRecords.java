@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @date Jul 26, 2022
  */
 
-@Document(collection = "progressrecords")
+@Document(collection = "healthprogressrecords")
 public class AnimalHealthProgressRecords {
     @Id
     private Integer animalId;
