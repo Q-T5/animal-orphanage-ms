@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface AnimalHealthProgressRecordsRepo extends MongoRepository<AnimalHealthProgressRecords, Integer> {
+public interface AnimalHealthProgressRecordsDAO extends MongoRepository<AnimalHealthProgressRecords, Integer> {
     
 }
