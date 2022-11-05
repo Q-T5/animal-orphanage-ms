@@ -24,14 +24,14 @@ import org.hibernate.annotations.Proxy;
  */
 
 @Entity
-@Table(name = "animal_detail")
+@Table(name = "animal_basic_detail")
 @Proxy(lazy = false)
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalDetail {
+public class AnimalBasicDetail {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "animal_id")
@@ -51,9 +51,9 @@ public class AnimalDetail {
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_animal_detail_id")
-    private AdoptionDetail animalDetail;
+    private AnimalAdoptionDetail animalDetail;
 
-    public AnimalDetail(String petName, String commonName, Integer age) {
+    public AnimalBasicDetail(String petName, String commonName, Integer age) {
         this.petName = petName;
         this.commonName = commonName;
         this.age = age;
