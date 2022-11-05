@@ -2,11 +2,10 @@ package npc.martin.aomsbackend.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import npc.martin.aomsbackend.entity.Animal;
+import npc.martin.aomsbackend.entity.AnimalBasicDetail;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,69 +13,68 @@ import org.springframework.stereotype.Repository;
  * @author bikathi_martin
  */
 @Repository
-public class AnimalDAOImpl implements AnimalDAO {
+public class AnimalBasicDetailsDAOImpl implements AnimalBasicDetailDAO {
     private final EntityManager entityManager;
     
     @Autowired
-    public AnimalDAOImpl(EntityManager entityManager) {
+    public AnimalBasicDetailsDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public List<Animal> getAnimals() {
+    public List<AnimalBasicDetail> getAnimals() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Animal> query = currentSession.createQuery("from Animal", Animal.class);
+        Query<AnimalBasicDetail> query = currentSession.createQuery("from Animal", AnimalBasicDetail.class);
 
-        List<Animal> animalList = query.getResultList();
+        List<AnimalBasicDetail> animalList = query.getResultList();
         return animalList;
     }
 
     @Override
-    public void createAnimal(Animal animal) {
+    public void createAnimal(AnimalBasicDetail animal) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.save(animal);
     }
 
     @Override
-    public Animal getAnimalById(Integer animalId) {
+    public AnimalBasicDetail getAnimalById(Integer animalId) {
         Session currentSession = entityManager.unwrap(Session.class);
 
-        Animal theAnimal = currentSession.getReference(Animal.class, animalId);
+        AnimalBasicDetail theAnimal = currentSession.getReference(AnimalBasicDetail.class, animalId);
         return theAnimal;
     }
 
     @Override
-    public void updateAnimal(Animal animal) {
+    public void updateAnimal(AnimalBasicDetail animal) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.update(animal);
     }
 
     @Override
-    public void deleteAnimal(Animal animal) {
+    public void deleteAnimal(AnimalBasicDetail animal) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.delete(animal);
     }
 
     @Override
-    public Animal searchAnimalById(Integer animalId) {
+    public AnimalBasicDetail searchAnimalById(Integer animalId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Animal> query = currentSession.createQuery(
-                "FROM Animal A WHERE A.animalId = :animal_id", 
-                Animal.class);
+        Query<AnimalBasicDetail> query = currentSession.createQuery("FROM Animal A WHERE A.animalId = :animal_id", 
+                AnimalBasicDetail.class);
         query.setParameter("animal_id", animalId);
-        Animal theAnimal = query.getSingleResult();
+        AnimalBasicDetail theAnimal = query.getSingleResult();
         return theAnimal;
     }
 
     @Override
-    public List<Animal> searchAnimalByCommonName(String commonName) {
+    public List<AnimalBasicDetail> searchAnimalByCommonName(String commonName) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Animal> query = currentSession.createQuery(
+        Query<AnimalBasicDetail> query = currentSession.createQuery(
                 "FROM Animal A WHERE A.commonName = :commonName" +
                 " ORDER BY A.animalId DESC"
         );
         query.setParameter("commonName", commonName);
-        List<Animal> animalList = query.list();
+        List<AnimalBasicDetail> animalList = query.list();
         return animalList;
     }
 }
