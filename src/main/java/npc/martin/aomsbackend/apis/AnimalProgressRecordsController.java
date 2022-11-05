@@ -2,9 +2,7 @@ package npc.martin.aomsbackend.apis;
 
 import java.util.Optional;
 import npc.martin.aomsbackend.advice.QueryEmptyResult;
-import npc.martin.aomsbackend.advice.ResourceNotFoundException;
-import npc.martin.aomsbackend.entity.AnimalProgressRecords;
-import npc.martin.aomsbackend.services.AnimalProgressRecordsService;
+import npc.martin.aomsbackend.entity.AnimalHealthProgressRecords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import npc.martin.aomsbackend.services.AnimalHealthProgressRecordsService;
 
 /**
  *
@@ -27,20 +26,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" } )
-public class AnimalProgressRecordsRestController {
-    public AnimalProgressRecordsService animalProgressRecordsService;
+public class AnimalProgressRecordsController {
+    public AnimalHealthProgressRecordsService animalProgressRecordsService;
 
-    public AnimalProgressRecordsRestController() {
+    public AnimalProgressRecordsController() {
     }
     
     @Autowired
-    public AnimalProgressRecordsRestController(AnimalProgressRecordsService animalProgressRecordsService) {
+    public AnimalProgressRecordsController(AnimalHealthProgressRecordsService animalProgressRecordsService) {
         this.animalProgressRecordsService = animalProgressRecordsService;
     }
     
     @GetMapping(value = "/animals/getAnimalRecord/{animalId}")
-    public ResponseEntity<AnimalProgressRecords> getAnimalRecord(@PathVariable Integer animalId) {
-        Optional<AnimalProgressRecords> theRecordsContainer = animalProgressRecordsService.getAnimalDetails(animalId);
+    public ResponseEntity<AnimalHealthProgressRecords> getAnimalRecord(@PathVariable Integer animalId) {
+        Optional<AnimalHealthProgressRecords> theRecordsContainer = animalProgressRecordsService.getAnimalDetails(animalId);
 
         if(theRecordsContainer.isPresent()) {
             return new ResponseEntity<>(theRecordsContainer.get(), HttpStatus.FOUND);
@@ -50,15 +49,15 @@ public class AnimalProgressRecordsRestController {
     }
     
     @PostMapping(value = "/animals/newAnimalRecord")
-    public ResponseEntity<AnimalProgressRecords> createAnimalRecord(@RequestBody AnimalProgressRecords animalProgressRecord) {
-        AnimalProgressRecords createdRecords = animalProgressRecordsService.createAnimalProgressRecord(animalProgressRecord);
+    public ResponseEntity<AnimalHealthProgressRecords> createAnimalRecord(@RequestBody AnimalHealthProgressRecords animalProgressRecord) {
+        AnimalHealthProgressRecords createdRecords = animalProgressRecordsService.createAnimalProgressRecord(animalProgressRecord);
         return new ResponseEntity<>(createdRecords, HttpStatus.CREATED);
     }
     
     @PutMapping("/animals/updateAnimalRecord")
-    public ResponseEntity<AnimalProgressRecords> updateAnimalRecord(@RequestBody AnimalProgressRecords animalProgressRecord) {
-        Optional<AnimalProgressRecords> theRecordsContainer = animalProgressRecordsService.getAnimalDetails(animalProgressRecord.getAnimalId());
-        AnimalProgressRecords currentAnimalProgressRecord = null;
+    public ResponseEntity<AnimalHealthProgressRecords> updateAnimalRecord(@RequestBody AnimalHealthProgressRecords animalProgressRecord) {
+        Optional<AnimalHealthProgressRecords> theRecordsContainer = animalProgressRecordsService.getAnimalDetails(animalProgressRecord.getAnimalId());
+        AnimalHealthProgressRecords currentAnimalProgressRecord = null;
 
         if(theRecordsContainer.isPresent()) {
             currentAnimalProgressRecord = theRecordsContainer.get();
@@ -77,7 +76,7 @@ public class AnimalProgressRecordsRestController {
     
     @DeleteMapping("/animals/deleteAnimalRecord/{animalId}")
     public ResponseEntity<String> deleteAnimalRecord(@PathVariable Integer animalId) {
-        Optional<AnimalProgressRecords> theRecordsContainer = animalProgressRecordsService.getAnimalDetails(animalId);
+        Optional<AnimalHealthProgressRecords> theRecordsContainer = animalProgressRecordsService.getAnimalDetails(animalId);
         
         if(theRecordsContainer.isEmpty()) {
             throw new QueryEmptyResult("No animal for id: " + animalId + " was found.");
