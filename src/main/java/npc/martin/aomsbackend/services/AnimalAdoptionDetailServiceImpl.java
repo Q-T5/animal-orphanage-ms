@@ -1,10 +1,10 @@
 package npc.martin.aomsbackend.services;
 
-import npc.martin.aomsbackend.dao.AnimalDetailsDAO;
-import npc.martin.aomsbackend.entity.AnimalDetail;
+import npc.martin.aomsbackend.entity.AnimalAdoptionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import npc.martin.aomsbackend.dao.AnimalAdoptionDetailDAO;
 
 /**
  *
@@ -12,23 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service
-public class AnimalDetailsServiceImpl implements AnimalDetailsService {
-    private AnimalDetailsDAO animalDetailsDAO;
+public class AnimalAdoptionDetailServiceImpl implements AnimalAdoptionDetailService {
+    private AnimalAdoptionDetailDAO animalDetailsDAO;
     
     @Autowired
-    public AnimalDetailsServiceImpl(AnimalDetailsDAO animalDetailsDAO) {
+    public AnimalAdoptionDetailServiceImpl(AnimalAdoptionDetailDAO animalDetailsDAO) {
         this.animalDetailsDAO = animalDetailsDAO;
     }
 
     @Override
     @Transactional
-    public void addAnimalDetail(AnimalDetail animalDetail) {
+    public void addAnimalDetail(AnimalAdoptionDetail animalDetail) {
         animalDetailsDAO.addAnimalDetail(animalDetail);
     }
 
     @Override
     @Transactional
-    public void updateAnimalDetail(AnimalDetail animalDetail) {
+    public void updateAnimalDetail(AnimalAdoptionDetail animalDetail) {
         animalDetailsDAO.updateAnimalDetail(animalDetail);
     }
     
