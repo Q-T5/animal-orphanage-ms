@@ -1,11 +1,11 @@
 package npc.martin.aomsbackend.services;
 
 import java.util.List;
-import npc.martin.aomsbackend.dao.AnimalDAO;
-import npc.martin.aomsbackend.entity.Animal;
+import npc.martin.aomsbackend.entity.AnimalBasicDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import npc.martin.aomsbackend.dao.AnimalBasicDetailDAO;
 
 /**
  *
@@ -13,53 +13,53 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service
-public class AnimalServiceImpl implements AnimalService {
-    private final AnimalDAO animalDAO;
+public class AnimalBasicDetailServiceImpl implements AnimalBasicDetailService {
+    private final AnimalBasicDetailDAO animalDAO;
     
     @Autowired
-    public AnimalServiceImpl(AnimalDAO animalDAO) {
+    public AnimalBasicDetailServiceImpl(AnimalBasicDetailDAO animalDAO) {
         this.animalDAO = animalDAO;
     }
     
     @Override
     @Transactional
-    public List<Animal> getAnimals() {
+    public List<AnimalBasicDetail> getAnimals() {
         return animalDAO.getAnimals();
     }
 
     @Override
     @Transactional
-    public void createAnimal(Animal animal) {
+    public void createAnimal(AnimalBasicDetail animal) {
         animalDAO.createAnimal(animal);
     }
 
     @Override
     @Transactional
-    public Animal getAnimalById(Integer animalId) {
+    public AnimalBasicDetail getAnimalById(Integer animalId) {
         return animalDAO.getAnimalById(animalId);
     }
 
     @Override
     @Transactional
-    public void updateAnimal(Animal animal) {
+    public void updateAnimal(AnimalBasicDetail animal) {
         animalDAO.updateAnimal(animal);
     }
 
     @Override
     @Transactional
-    public void deleteAnimal(Animal animal) {
+    public void deleteAnimal(AnimalBasicDetail animal) {
         animalDAO.deleteAnimal(animal);
     }
 
     @Override
     @Transactional
-    public Animal searchAnimalById(Integer animalId) {
+    public AnimalBasicDetail searchAnimalById(Integer animalId) {
         return animalDAO.searchAnimalById(animalId);
     }
 
     @Override
     @Transactional
-    public List<Animal> searchAnimalByCommonName(String commonName) {
+    public List<AnimalBasicDetail> searchAnimalByCommonName(String commonName) {
         return animalDAO.searchAnimalByCommonName(commonName);
     }
 }
