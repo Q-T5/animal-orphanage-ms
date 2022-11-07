@@ -1,39 +1,43 @@
--- create a new schema and use it to build the tables and relations 
-DROP SCHEMA IF EXISTS `animal_orphanage_tracker`;
-CREATE SCHEMA `animal_orphanage_tracker`;
-USE `animal_orphanage_tracker`;
+-- create a new schema and use it to house the tables and relations 
+DROP SCHEMA IF EXISTS `impala_animal_system_schema`;
+CREATE SCHEMA `impala_animal_system_schema`;
+USE `impala_animal_system_schema`;
 
--- create the animal_detail table
-DROP TABLE IF EXISTS `animal_detail`;
-CREATE TABLE `animal_detail` (
+-- create the adoption_detail table
+DROP TABLE IF EXISTS `animal_adoption_detail`;
+CREATE TABLE `animal_adoption_detail` (
 	-- this field is auto generated and it depends on the animal_id field of the animal_detail table
     `animal_id` int NOT NULL AUTO_INCREMENT, 
-    `date_brought` date NOT NULL,
+    -- this is the date the animal was aopted from the orphanage
     `date_adopted` date,
     `adoptee_name` varchar(128),
     `contact_number` varchar(24),
     `residential_location` varchar(128),
     
+    -- the PK for this table
     CONSTRAINT PRIMARY KEY(`animal_id`)
 );
-ALTER TABLE `animal_detail` AUTO_INCREMENT=100;
+-- this always ensures the IDs start from 100
+ALTER TABLE `animal_adoption_detail` AUTO_INCREMENT=100;
 
--- create the animal_detail table
-DROP TABLE IF EXISTS `animal`;
-CREATE TABLE `animal` (
+-- create the animal_detail table to store basic animal details
+DROP TABLE IF EXISTS `animal_basic_detail`;
+CREATE TABLE `animal_basic_detail` (
     `animal_id` int NOT NULL AUTO_INCREMENT,
+    -- pet name is a human-like name awarded to the animal e.g Jimmy, Lance e.t.c
     `pet_name` varchar(128),
     `common_name` varchar(128) NOT NULL,
-    `age_years` int(3) NOT NULL,
+    `age_years` int(3) NULL,
+    `date_brought` date NOT NULL,
     -- this column will be the foreign key as well as our join column
-    `fk_animal_detail_id` int DEFAULT NULL,
+    `fk_adoption_detail_id` int NOT NULL,
     CONSTRAINT PRIMARY KEY(`animal_id`),
+    CONSTRAINT FOREIGN KEY(`fk_adoption_detail_id`) REFERENCES `animal_adoption_detail`(`animal_id`)
     
-    -- this foreign key will act as our join column Hibernate-wise
-    CONSTRAINT FOREIGN KEY(`fk_animal_detail_id`) REFERENCES `animal_detail`(`animal_id`)
+    -- delete operations and update operations affect the animal_adoption_detail table
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- alter the `id` column to start AUTO_INCREMENT from 100
-ALTER TABLE `animal` AUTO_INCREMENT=100;
+ALTER TABLE `animal_basic_detail` AUTO_INCREMENT=100;
 
