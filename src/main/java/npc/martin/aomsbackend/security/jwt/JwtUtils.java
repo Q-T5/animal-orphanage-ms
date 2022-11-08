@@ -24,7 +24,7 @@ public class JwtUtils {
     @Value("${aoms.app.jwtExpirationMs}")
     private Integer jwtExpirationMs;
     
-    private String generateJwtToken(Authentication authentication) {
+    public String generateJwtToken(Authentication authentication) {
         SystemUserDetailsImpl userPrincipal = (SystemUserDetailsImpl) authentication.getPrincipal();
         
         return Jwts.builder()
