@@ -24,7 +24,7 @@ public class AnimalBasicDetailsDAOImpl implements AnimalBasicDetailDAO {
     @Override
     public List<AnimalBasicDetail> getAnimals() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<AnimalBasicDetail> query = currentSession.createQuery("from Animal", AnimalBasicDetail.class);
+        Query<AnimalBasicDetail> query = currentSession.createQuery("from AnimalBasicDetail", AnimalBasicDetail.class);
 
         List<AnimalBasicDetail> animalList = query.getResultList();
         return animalList;
@@ -59,7 +59,7 @@ public class AnimalBasicDetailsDAOImpl implements AnimalBasicDetailDAO {
     @Override
     public AnimalBasicDetail searchAnimalById(Integer animalId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<AnimalBasicDetail> query = currentSession.createQuery("FROM Animal A WHERE A.animalId = :animal_id", 
+        Query<AnimalBasicDetail> query = currentSession.createQuery("FROM AnimalBasicDetail A WHERE A.animalId = :animal_id", 
                 AnimalBasicDetail.class);
         query.setParameter("animal_id", animalId);
         AnimalBasicDetail theAnimal = query.getSingleResult();
@@ -70,7 +70,7 @@ public class AnimalBasicDetailsDAOImpl implements AnimalBasicDetailDAO {
     public List<AnimalBasicDetail> searchAnimalByCommonName(String commonName) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<AnimalBasicDetail> query = currentSession.createQuery(
-                "FROM Animal A WHERE A.commonName = :commonName" +
+                "FROM AnimalBasicDetail A WHERE A.commonName = :commonName" +
                 " ORDER BY A.animalId DESC"
         );
         query.setParameter("commonName", commonName);
