@@ -58,8 +58,8 @@ public class SystemUser {
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
-        name = "employee_detail_role",
-        joinColumns = @JoinColumn(name = "employee_id"),
+        name = "staff_detail_role",
+        joinColumns = @JoinColumn(name = "staff_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> employeeRoles = new ArrayList<>();
