@@ -1,7 +1,7 @@
 package npc.martin.aomsbackend.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +39,7 @@ public class SystemUser {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "staff_id")
-    private String employeeId;
+    private String staffId;
     
     @Column(name = "first_name")
     private String firstName;
@@ -51,7 +51,7 @@ public class SystemUser {
     private String password;
     
     @Column(name = "account_status")
-    private String accountStatus;
+    private Boolean accountStatus; //0 for active 1 for disabled
     
     @Column(name = "recovery_phrase")
     private String recoveryPhrase;
@@ -62,5 +62,5 @@ public class SystemUser {
         joinColumns = @JoinColumn(name = "staff_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> employeeRoles = new ArrayList<>();
+    private Set<Role> staffRoles = new HashSet<>();
 }
