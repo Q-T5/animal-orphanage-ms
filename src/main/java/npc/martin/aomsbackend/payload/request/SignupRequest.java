@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import npc.martin.aomsbackend.entity.Role;
 
 /**
  *
@@ -25,5 +24,5 @@ public class SignupRequest {
     private String password;
     private Boolean accountStatus;
     private String recoveryPhrase;
-    private Set<Role> staffRoles = new HashSet<>();
+    private Set<String> staffRoles = new HashSet<>();
 }
