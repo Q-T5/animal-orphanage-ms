@@ -4,7 +4,7 @@ package npc.martin.aomsbackend.entity;
  *
  * @author bikathi_martin
  */
-public enum SysRole {
+public enum SystemRoles {
     //admin can edit the user account details
     ROLE_ADMIN,
     
