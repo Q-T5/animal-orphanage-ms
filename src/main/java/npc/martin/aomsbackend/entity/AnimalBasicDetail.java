@@ -50,7 +50,7 @@ public class AnimalBasicDetail {
     private LocalDate dateBrought;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_animal_detail_id")
+    @JoinColumn(name = "fk_adoption_detail_id")
     private AnimalAdoptionDetail animalDetail;
 
     public AnimalBasicDetail(String petName, String commonName, Integer age) {
