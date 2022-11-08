@@ -2,6 +2,8 @@ package npc.martin.aomsbackend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,5 +33,6 @@ public class Role {
     private Integer role_id;
     
     @Column(name = "role_name")
+    @Enumerated(EnumType.STRING)
     private SystemRoles roleName;
 }
