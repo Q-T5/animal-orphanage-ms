@@ -1,5 +1,6 @@
 package npc.martin.aomsbackend.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,15 +24,15 @@ import org.hibernate.annotations.Proxy;
  * @author bikathi_martin
  */
 
-@Entity
-@Table(name = "animal_basic_detail")
 @Proxy(lazy = false)
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalBasicDetail {
+@Entity
+@Table(name = "animal_basic_detail")
+public class AnimalBasicDetail implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "animal_id")

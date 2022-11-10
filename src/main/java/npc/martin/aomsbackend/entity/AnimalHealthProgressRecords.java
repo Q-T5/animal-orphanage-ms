@@ -1,5 +1,6 @@
 package npc.martin.aomsbackend.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +18,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @date Jul 26, 2022
  */
 
-@Document(collection = "healthprogressrecords")
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnimalHealthProgressRecords {
+@Document(collection = "healthprogressrecords")
+public class AnimalHealthProgressRecords implements Serializable {
     @Id
     private Integer animalId;
     private ClinicalState clinicalState;
