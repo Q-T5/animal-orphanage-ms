@@ -18,7 +18,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class JwtResponse {
     private String token;
-    private String type = "Bearer";
+    private String type = "Bearer ";
     private String staffId;
     private String firstName;
     private List<String> roles;
