@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.NoArgsConstructor;
 import npc.martin.aomsbackend.entity.Role;
 import npc.martin.aomsbackend.entity.SystemRoles;
 import npc.martin.aomsbackend.entity.SystemUser;
@@ -15,6 +16,8 @@ import npc.martin.aomsbackend.repository.SystemRoleRepository;
 import npc.martin.aomsbackend.repository.SystemUserRepository;
 import npc.martin.aomsbackend.security.jwt.JwtUtils;
 import npc.martin.aomsbackend.services.SystemUserDetailsImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
 public class SystemUserController {
     @Autowired
@@ -53,11 +56,13 @@ public class SystemUserController {
     @Autowired
     private JwtUtils jwtUtils;
     
-    @PostMapping("/signin")
+    private static final Logger logger = LoggerFactory.getLogger(SystemUserController.class);
+    
+    @PostMapping(value = "/signin")
     public ResponseEntity<?> signInUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getStaffId(), loginRequest.getPassword()));
-        
+            new UsernamePasswordAuthenticationToken(loginRequest.getStaffId(), loginRequest.getPassword()));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         
@@ -73,7 +78,7 @@ public class SystemUserController {
             roles), HttpStatus.OK);
     }
     
-    @PostMapping("/signup")
+    @PostMapping(value = "/signup")
     public ResponseEntity<?> signUpUser(@RequestBody SignupRequest signupRequest) {
         if(userRepository.existsByStaffId(signupRequest.getStaffId())) {
             return new ResponseEntity(new MessageResponse("Error: StaffId is Already Taken"), 
@@ -111,7 +116,7 @@ public class SystemUserController {
                         roles.add(editorRole);
                         break;
                     case "manager":
-                        Role managerRole = roleRepository.findByRoleName(SystemRoles.ROLE_ADMIN)
+                        Role managerRole = roleRepository.findByRoleName(SystemRoles.ROLE_MANAGER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(managerRole);
                         break;
