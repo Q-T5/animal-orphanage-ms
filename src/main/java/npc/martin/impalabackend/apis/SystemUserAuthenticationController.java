@@ -14,8 +14,6 @@ import npc.martin.impalabackend.payload.response.MessageResponse;
 import npc.martin.impalabackend.repository.SystemUserRepository;
 import npc.martin.impalabackend.security.jwt.JwtUtils;
 import npc.martin.impalabackend.services.SystemUserDetailsImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +37,7 @@ import npc.martin.impalabackend.repository.RoleRepository;
 @RestController
 @CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" } )
 @RequestMapping("/api")
-public class SystemUserController {
+public class SystemUserAuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
     
@@ -54,8 +52,6 @@ public class SystemUserController {
     
     @Autowired
     private JwtUtils jwtUtils;
-    
-    private static final Logger logger = LoggerFactory.getLogger(SystemUserController.class);
     
     @PostMapping(value = "/auth/signin")
     public ResponseEntity<?> signInUser(@RequestBody LoginRequest loginRequest) {
@@ -104,25 +100,26 @@ public class SystemUserController {
         } else {
             stringRoles.forEach(role -> {
                 switch(role) {
-                    case "admin":
+                    case "admin" -> {
                         Role adminRole = roleRepository.findByRoleName(SystemRoles.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
+                                .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(adminRole);
-                        break;
-                    case "editor":
+                    }
+                    case "editor" -> {
                         Role editorRole = roleRepository.findByRoleName(SystemRoles.ROLE_EDITOR)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
+                                .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(editorRole);
-                        break;
-                    case "manager":
+                    }
+                    case "manager" -> {
                         Role managerRole = roleRepository.findByRoleName(SystemRoles.ROLE_MANAGER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
+                                .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(managerRole);
-                        break;
-                    default:
+                    }
+                    default -> {
                         Role editorRoleDefault = roleRepository.findByRoleName(SystemRoles.ROLE_EDITOR)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
+                                .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(editorRoleDefault);
+                    }
                 }
             });
         }
