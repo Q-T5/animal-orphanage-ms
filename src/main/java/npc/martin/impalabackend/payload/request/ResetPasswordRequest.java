@@ -18,5 +18,5 @@ import lombok.ToString;
 @ToString
 public class ResetPasswordRequest {
     private String staffId;
-    private String password;
+    private String newPassword;
 }
