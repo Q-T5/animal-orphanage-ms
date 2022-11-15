@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import npc.martin.impalabackend.repository.RoleRepository;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  *
@@ -133,13 +134,18 @@ public class SystemUserAuthenticationController {
         return new ResponseEntity(new MessageResponse("User registered successfully"),HttpStatus.CREATED);
     }
     
-    @PostMapping(value = "/user/forgotResetPassword")
+    @PutMapping(value = "/auth/passReset")
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest passwordReset) {
         SystemUser user = userRepository.findByStaffId(passwordReset.getStaffId())
             .orElseThrow(() -> 
                 new ResourceNotFoundException("Staff With Id " + passwordReset.getStaffId() + "Not Found"));
         
         user.setPassword(passwordEncoder.encode(passwordReset.getPassword()));
-        return null;
+        try {
+            userRepository.save(user);
+            return new ResponseEntity<>(new MessageResponse("Reset Password Successfully"), HttpStatus.OK);
+        } catch(Exception ex) {
+            return new ResponseEntity<>(new RuntimeException("Error Reseting Password"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
