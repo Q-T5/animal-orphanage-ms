@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import npc.martin.impalabackend.advice.ResourceNotFoundException;
 import npc.martin.impalabackend.entity.Role;
 import npc.martin.impalabackend.entity.SystemRoles;
 import npc.martin.impalabackend.entity.SystemUser;
 import npc.martin.impalabackend.payload.request.LoginRequest;
+import npc.martin.impalabackend.payload.request.ResetPasswordRequest;
 import npc.martin.impalabackend.payload.request.SignupRequest;
 import npc.martin.impalabackend.payload.response.JwtResponse;
 import npc.martin.impalabackend.payload.response.MessageResponse;
@@ -86,8 +88,7 @@ public class SystemUserAuthenticationController {
                 signupRequest.getFirstName(), 
                 signupRequest.getLastName(), 
                 passwordEncoder.encode(signupRequest.getPassword()), 
-                signupRequest.getAccountStatus(), 
-                passwordEncoder.encode(signupRequest.getRecoveryPhrase()), 
+                signupRequest.getAccountActive(),
                 null);
         
         Set<String> stringRoles = signupRequest.getStaffRoles();
@@ -104,16 +105,19 @@ public class SystemUserAuthenticationController {
                         Role adminRole = roleRepository.findByRoleName(SystemRoles.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(adminRole);
+                        break;
                     }
                     case "editor" -> {
                         Role editorRole = roleRepository.findByRoleName(SystemRoles.ROLE_EDITOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(editorRole);
+                        break;
                     }
                     case "manager" -> {
                         Role managerRole = roleRepository.findByRoleName(SystemRoles.ROLE_MANAGER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is Not Found"));
                         roles.add(managerRole);
+                        break;
                     }
                     default -> {
                         Role editorRoleDefault = roleRepository.findByRoleName(SystemRoles.ROLE_EDITOR)
@@ -127,5 +131,15 @@ public class SystemUserAuthenticationController {
         user.setStaffRoles(roles);
         userRepository.save(user);
         return new ResponseEntity(new MessageResponse("User registered successfully"),HttpStatus.CREATED);
+    }
+    
+    @PostMapping(value = "/user/forgotResetPassword")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest passwordReset) {
+        SystemUser user = userRepository.findByStaffId(passwordReset.getStaffId())
+            .orElseThrow(() -> 
+                new ResourceNotFoundException("Staff With Id " + passwordReset.getStaffId() + "Not Found"));
+        
+        user.setPassword(passwordEncoder.encode(passwordReset.getPassword()));
+        return null;
     }
 }
