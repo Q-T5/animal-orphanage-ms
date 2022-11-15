@@ -43,7 +43,7 @@ public class SystemUser {
     private String password;
     
     @Column(name = "account_status")
-    private Boolean accountStatus; //0 for active 1 for disabled
+    private Boolean accountActive; //0 for active 1 for disabled
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
