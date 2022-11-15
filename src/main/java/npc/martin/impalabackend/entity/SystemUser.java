@@ -45,9 +45,6 @@ public class SystemUser {
     @Column(name = "account_status")
     private Boolean accountStatus; //0 for active 1 for disabled
     
-    @Column(name = "recovery_phrase")
-    private String recoveryPhrase;
-    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
         name = "staff_detail_role",
