@@ -26,8 +26,7 @@ public class SystemUserDetailsImpl implements UserDetails {
     private String firstName;
     private String lastName;
     private String password;
-    private Boolean accountStatus;
-    private String recoveryPhrase;
+    private Boolean accountActive;
     private Collection<? extends GrantedAuthority> authorities;
     
     public static SystemUserDetailsImpl build(SystemUser user) {
@@ -40,8 +39,7 @@ public class SystemUserDetailsImpl implements UserDetails {
             user.getFirstName(),
             user.getLastName(),
             user.getPassword(),
-            user.getAccountStatus(),
-            user.getRecoveryPhrase(),
+            user.getAccountActive(),
             authorities
         );
     }
@@ -78,7 +76,7 @@ public class SystemUserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return accountStatus;
+        return accountActive;
     }
 
     @Override
