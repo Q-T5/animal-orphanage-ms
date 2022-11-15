@@ -22,7 +22,6 @@ public class SignupRequest {
     private String firstName;
     private String lastName;
     private String password;
-    private Boolean accountStatus;
-    private String recoveryPhrase;
+    private Boolean accountActive;
     private Set<String> staffRoles = new HashSet<>();
 }
