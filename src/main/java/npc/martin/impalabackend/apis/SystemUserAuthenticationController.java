@@ -140,7 +140,7 @@ public class SystemUserAuthenticationController {
             .orElseThrow(() -> 
                 new ResourceNotFoundException("Staff With Id " + passwordReset.getStaffId() + "Not Found"));
         
-        user.setPassword(passwordEncoder.encode(passwordReset.getPassword()));
+        user.setPassword(passwordEncoder.encode(passwordReset.getNewPassword()));
         try {
             userRepository.save(user);
             return new ResponseEntity<>(new MessageResponse("Reset Password Successfully"), HttpStatus.OK);
