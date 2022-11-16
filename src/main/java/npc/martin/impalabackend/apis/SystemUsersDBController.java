@@ -3,7 +3,6 @@ package npc.martin.impalabackend.apis;
 import java.util.ArrayList;
 import java.util.List;
 import npc.martin.impalabackend.advice.ResourceNotFoundException;
-import npc.martin.impalabackend.entity.Role;
 import npc.martin.impalabackend.entity.SystemUser;
 import npc.martin.impalabackend.entity.SystemUsersListEntity;
 import npc.martin.impalabackend.repository.SystemUserRepository;
@@ -12,14 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -27,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" } )
 @RequestMapping(value = "/api")
 public class SystemUsersDBController {
     @Autowired

@@ -4,12 +4,7 @@ import npc.martin.impalabackend.entity.AnimalAdoptionDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import npc.martin.impalabackend.services.AnimalAdoptionDetailService;
 
 /**
@@ -19,7 +14,6 @@ import npc.martin.impalabackend.services.AnimalAdoptionDetailService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" } )
 public class AnimalAdoptionDetailController {
     private final AnimalAdoptionDetailService animalDetailsService;
     
