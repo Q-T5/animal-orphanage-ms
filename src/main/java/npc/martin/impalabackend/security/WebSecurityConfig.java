@@ -1,5 +1,6 @@
 package npc.martin.impalabackend.security;
 
+import java.util.List;
 import npc.martin.impalabackend.security.jwt.AuthEntryPointJwt;
 import npc.martin.impalabackend.security.jwt.AuthTokenFilter;
 import npc.martin.impalabackend.services.SystemUserDetailsServiceImpl;
@@ -16,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 /**
  *
@@ -58,7 +61,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-      http.cors().and().csrf().disable()
+      http.csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests().antMatchers("/api/auth/**").permitAll()
@@ -67,7 +70,17 @@ public class WebSecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+      http.cors(cors -> {
+        CorsConfigurationSource source = request -> {
+          CorsConfiguration corsConfig = new CorsConfiguration();
+          corsConfig.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.1:5173"));
+          corsConfig.setAllowedMethods(List.of("GET, PUT, POST, DELETE"));
 
-        return http.build();
+          return corsConfig;
+        };
+        cors.configurationSource(source);
+      });
+
+      return http.build();
     }
 }
