@@ -65,16 +65,4 @@ public class AnimalBasicDetailsDAOImpl implements AnimalBasicDetailDAO {
         AnimalBasicDetail theAnimal = query.getSingleResult();
         return theAnimal;
     }
-
-    @Override
-    public List<AnimalBasicDetail> searchAnimalByCommonName(String commonName) {
-        Session currentSession = entityManager.unwrap(Session.class);
-        Query<AnimalBasicDetail> query = currentSession.createQuery(
-                "FROM AnimalBasicDetail A WHERE A.commonName = :commonName" +
-                " ORDER BY A.animalId DESC"
-        );
-        query.setParameter("commonName", commonName);
-        List<AnimalBasicDetail> animalList = query.list();
-        return animalList;
-    }
 }

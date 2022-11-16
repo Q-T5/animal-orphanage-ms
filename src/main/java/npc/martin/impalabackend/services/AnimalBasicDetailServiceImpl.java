@@ -56,10 +56,4 @@ public class AnimalBasicDetailServiceImpl implements AnimalBasicDetailService {
     public AnimalBasicDetail searchAnimalById(Integer animalId) {
         return animalDAO.searchAnimalById(animalId);
     }
-
-    @Override
-    @Transactional
-    public List<AnimalBasicDetail> searchAnimalByCommonName(String commonName) {
-        return animalDAO.searchAnimalByCommonName(commonName);
-    }
 }
