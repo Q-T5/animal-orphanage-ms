@@ -65,18 +65,6 @@ public class AnimalBasicDetailController {
         return new ResponseEntity<>(theAnimal, HttpStatus.OK);
     }
     
-    @GetMapping(value = "/animal/searchAnimal/commonName")
-    public ResponseEntity<List<AnimalBasicDetail>> 
-            searchAnimalByCommonName(@RequestParam(required = true) String name) {
-        List<AnimalBasicDetail> animalList = animalService.searchAnimalByCommonName(name);
-        
-        if(animalList.isEmpty()) {
-            throw new QueryEmptyResult("Animal with common name: " + name + " not found.");
-        }
-        
-        return new ResponseEntity(animalList, HttpStatus.OK);
-    }
-    
     @PutMapping(value = "/animals/updateAnimal")
     public ResponseEntity<AnimalBasicDetail> updateAnimal(@RequestBody AnimalBasicDetail animal) {
         animalService.updateAnimal(animal);
