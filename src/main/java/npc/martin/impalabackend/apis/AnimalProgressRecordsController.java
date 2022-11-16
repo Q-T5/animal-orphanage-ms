@@ -56,7 +56,6 @@ public class AnimalProgressRecordsController {
             throw new QueryEmptyResult("Animal progress records for the id: " + animalProgressRecord.getAnimalId() + "do not exist.");
         }
 
-        currentAnimalProgressRecord.setClinicalState(animalProgressRecord.getClinicalState());
         currentAnimalProgressRecord.setFoods(animalProgressRecord.getFoods());
         currentAnimalProgressRecord.setMedicalProgress(animalProgressRecord.getMedicalProgress());
         currentAnimalProgressRecord.setWhereFound(animalProgressRecord.getWhereFound());
