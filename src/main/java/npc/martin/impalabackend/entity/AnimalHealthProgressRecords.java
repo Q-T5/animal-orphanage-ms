@@ -27,9 +27,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class AnimalHealthProgressRecords implements Serializable {
     @Id
     private Integer animalId;
-    private ClinicalState clinicalState;
     private String whereFound;
     private String foods;
+    private Float weight;
     private List<MedicalProgress> medicalProgress;
     
     public void updateMedicalProgress(MedicalProgress medicalProgressUpdate) {
@@ -39,17 +39,6 @@ public class AnimalHealthProgressRecords implements Serializable {
         
         this.medicalProgress.add(medicalProgressUpdate);
     }
-}
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@ToString
-class ClinicalState {
-    private Float weight;
-    private Integer numberOfChildren;
-    private String medicalState;
 }
 
 @NoArgsConstructor

@@ -38,9 +38,6 @@ public class AnimalBasicDetail implements Serializable {
     @Column(name = "animal_id")
     private Integer animalId;
     
-    @Column(name = "pet_name")
-    private String petName;
-    
     @Column(name = "common_name")
     private String commonName;
     
@@ -54,8 +51,7 @@ public class AnimalBasicDetail implements Serializable {
     @JoinColumn(name = "fk_adoption_detail_id")
     private AnimalAdoptionDetail animalDetail;
 
-    public AnimalBasicDetail(String petName, String commonName, Integer age) {
-        this.petName = petName;
+    public AnimalBasicDetail(String commonName, Integer age) {
         this.commonName = commonName;
         this.age = age;
     }
