@@ -1,14 +1,14 @@
 -- create a new schema and use it to house the tables and relations 
-DROP SCHEMA IF EXISTS `impala_animal_system_schema`;
-CREATE SCHEMA `impala_animal_system_schema`;
-USE `impala_animal_system_schema`;
+DROP SCHEMA IF EXISTS `impala_sanctuary_system_schema`;
+CREATE SCHEMA `impala_sanctuary_system_schema`;
+USE `impala_sanctuary_system_schema`;
 
 -- create the adoption_detail table
 DROP TABLE IF EXISTS `animal_adoption_detail`;
 CREATE TABLE `animal_adoption_detail` (
 	-- this field is auto generated and it depends on the animal_id field of the animal_detail table
     `animal_id` int NOT NULL AUTO_INCREMENT, 
-    -- this is the date the animal was aopted from the orphanage
+    -- this is the date the animal was adopted from the orphanage
     `date_adopted` date,
     `adoptee_name` varchar(128),
     `contact_number` varchar(24),
@@ -24,9 +24,8 @@ ALTER TABLE `animal_adoption_detail` AUTO_INCREMENT=100;
 DROP TABLE IF EXISTS `animal_basic_detail`;
 CREATE TABLE `animal_basic_detail` (
     `animal_id` int NOT NULL AUTO_INCREMENT,
-    -- pet name is a human-like name awarded to the animal e.g Jimmy, Lance e.t.c
-    `pet_name` varchar(128),
     `common_name` varchar(128) NOT NULL,
+    `where_found` varchar(256) NULL,
     `age_years` int(3) NULL,
     `date_brought` date NOT NULL,
     -- this column will be the foreign key as well as our join column
