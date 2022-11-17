@@ -70,16 +70,6 @@ public class WebSecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-      http.cors(cors -> {
-        CorsConfigurationSource source = request -> {
-          CorsConfiguration corsConfig = new CorsConfiguration();
-          corsConfig.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.1:5173"));
-          corsConfig.setAllowedMethods(List.of("GET, PUT, POST, DELETE"));
-
-          return corsConfig;
-        };
-        cors.configurationSource(source);
-      });
 
       return http.build();
     }
