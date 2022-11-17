@@ -41,6 +41,9 @@ public class AnimalBasicDetail implements Serializable {
     @Column(name = "common_name")
     private String commonName;
     
+    @Column(name = "where_found")
+    private String whereFound;
+    
     @Column(name = "age_years")
     private Integer age;
             
