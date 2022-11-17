@@ -17,6 +17,7 @@ import npc.martin.impalabackend.services.AnimalHealthProgressRecordsService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" })
 public class AnimalProgressRecordsController {
     public AnimalHealthProgressRecordsService animalProgressRecordsService;
 
@@ -58,7 +59,6 @@ public class AnimalProgressRecordsController {
 
         currentAnimalProgressRecord.setFoods(animalProgressRecord.getFoods());
         currentAnimalProgressRecord.setMedicalProgress(animalProgressRecord.getMedicalProgress());
-        currentAnimalProgressRecord.setWhereFound(animalProgressRecord.getWhereFound());
 
         animalProgressRecordsService.updateAnimalProgressRecord(currentAnimalProgressRecord);
         return new ResponseEntity<>(currentAnimalProgressRecord, HttpStatus.OK);

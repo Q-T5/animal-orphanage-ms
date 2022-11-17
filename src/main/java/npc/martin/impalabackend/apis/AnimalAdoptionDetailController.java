@@ -14,6 +14,7 @@ import npc.martin.impalabackend.services.AnimalAdoptionDetailService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = { "http://localhost:5173", "http://127.0.0.1:5173" })
 public class AnimalAdoptionDetailController {
     private final AnimalAdoptionDetailService animalDetailsService;
     
