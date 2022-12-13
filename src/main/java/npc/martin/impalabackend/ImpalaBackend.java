@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AomsBackendApplication {
+public class ImpalaBackend {
     public static void main(String[] args) {
-        SpringApplication.run(AomsBackendApplication.class, args);
+        SpringApplication.run(ImpalaBackend.class, args);
     }
 }
